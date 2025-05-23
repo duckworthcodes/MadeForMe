@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Assistant - MadeForMe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e8e3ed;
+            --secondary: #E8F2F0;
+            --accent: #e6f1ef;
+            --text: #111111;
+            --light-gray: #5f5b5b;
+            --cream: #b8b1b1;
+            --gradient: linear-gradient(to right, #07000D, #8b9190);
+            --shadow: 0 4px 15px rgba(0,0,0,0.2);
+            --transition: all 0.3s ease;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Poppins', sans-serif; 
+        }
+        
+        body { 
+            background-color: #fff; 
+            color: var(--text); 
+            line-height: 1.6; 
+        }
+
+        .nav-header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .logo span {
+            color: var(--light-gray);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--light-gray);
+        }
+
+        .design-assistant-container {
+            max-width: 1200px;
+            margin: 100px auto;
+            padding: 40px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .tool-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .tool-description {
+            color: var(--light-gray);
+            margin-bottom: 20px;
+        }
+
+        .tool-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .tool-input:focus {
+            outline: none;
+            border-color: var(--text);
+        }
+
+        .tool-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .tool-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .tool-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .result-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-top: 40px;
+            display: none;
+        }
+
+        .result-section.active {
+            display: block;
+        }
+
+        .result-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .color-palette {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .color-swatch {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .color-code {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: var(--light-gray);
+            background: white;
+            padding: 2px 6px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .design-elements {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .element-card {
+            background: var(--secondary);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .element-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .element-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .element-description {
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+
+        .analysis-section {
+            background: var(--primary);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .analysis-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .analysis-text {
+            color: var(--light-gray);
+            line-height: 1.8;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 10px 20px;
+            border-radius: 25px;
+            background: var(--secondary);
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .loading {
+            text-align: center;
+            display: none;
+            margin: 40px 0;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--primary);
+            border-top: 4px solid var(--text);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .success-message {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .design-assistant-container {
+                margin: 50px auto;
+                padding: 20px;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .color-palette {
+                justify-content: center;
+            }
+
+            .color-swatch {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Made<span>ForMe</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Collection.html">Collections</a></li>
+                <li><a href="community.html">Community</a></li>
+                <li><a href="about-us.html">About Us</a></li>
+                <li><a href="bug-report.html">Report Bug</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+                <li><a href="Log.html">Login</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="design-assistant-container">
+        <h1 class="page-title">AI Design Assistant</h1>
+        
+        <div class="tools-grid">
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h2 class="tool-title">Color Combinations</h2>
+                <p class="tool-description">Get AI-powered color palette suggestions for your design</p>
+                <input type="text" class="tool-input" id="colorPrompt" placeholder="e.g., 'elegant evening wear' or 'vibrant summer collection'">
+                <button class="tool-btn" onclick="generateColorPalette()">Generate Colors</button>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-pencil-ruler"></i>
+                </div>
+                <h2 class="tool-title">Design Elements</h2>
+                <p class="tool-description">Get suggestions for design elements and patterns</p>
+                <input type="text" class="tool-input" id="designPrompt" placeholder="e.g., 'minimalist streetwear' or 'bohemian style'">
+                <button class="tool-btn" onclick="generateDesignElements()">Generate Elements</button>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <h2 class="tool-title">Style Inspiration</h2>
+                <p class="tool-description">Get inspiration for your design style</p>
+                <input type="text" class="tool-input" id="stylePrompt" placeholder="e.g., 'sustainable fashion' or 'futuristic designs'">
+                <button class="tool-btn" onclick="generateStyleInspiration()">Get Inspiration</button>
+            </div>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Generating design suggestions...</p>
+        </div>
+
+        <div class="error-message" id="errorMessage">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span id="errorText"></span>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i>
+            Design suggestions generated successfully!
+        </div>
+
+        <div class="result-section" id="resultSection">
+            <h2 class="result-title" id="resultTitle">Design Suggestions</h2>
+            
+            <div id="colorPaletteSection" style="display: none;">
+                <h3>Color Palette</h3>
+                <div id="colorPalette" class="color-palette"></div>
+            </div>
+            
+            <div id="designElementsSection" style="display: none;">
+                <h3>Design Elements</h3>
+                <div id="designElements" class="design-elements"></div>
+            </div>
+            
+            <div class="analysis-section">
+                <h3 class="analysis-title">AI Analysis</h3>
+                <p class="analysis-text" id="analysisText"></p>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
+
+    <script>
+        // Mock AI responses to simulate the functionality
+        const mockAIResponses = {
+            colors: {
+                'elegant evening wear': {
+                    colors: ['#2C3E50', '#E74C3C', '#F39C12', '#BDC3C7', '#1ABC9C'],
+                    analysis: 'For elegant evening wear, I recommend a sophisticated palette that combines deep navy (#2C3E50) as the primary color, with rich crimson (#E74C3C) for dramatic accents. Golden amber (#F39C12) adds luxury, while silver-gray (#BDC3C7) provides neutral balance. Teal (#1ABC9C) brings a modern twist to the classic evening palette.'
+                },
+                'vibrant summer collection': {
+                    colors: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA726', '#AB47BC'],
+                    analysis: 'This vibrant summer palette captures the energy of the season. Coral (#FF6B6B) brings warmth and vitality, turquoise (#4ECDC4) evokes tropical waters, sky blue (#45B7D1) reflects summer skies, sunset orange (#FFA726) adds warmth, and purple (#AB47BC) provides sophisticated contrast.'
+                },
+                default: {
+                    colors: ['#3498DB', '#E74C3C', '#F39C12', '#27AE60', '#9B59B6'],
+                    analysis: 'This versatile color palette offers a balanced mix of cool and warm tones. Blue (#3498DB) provides stability, red (#E74C3C) adds energy, orange (#F39C12) brings warmth, green (#27AE60) represents growth, and purple (#9B59B6) adds creativity.'
+                }
+            },
+            elements: {
+                'minimalist streetwear': {
+                    elements: [
+                        { name: 'Clean Silhouettes', description: 'Simple, uncluttered shapes that focus on fit and proportion' },
+                        { name: 'Neutral Tones', description: 'Understated color palette with strategic pops of accent colors' },
+                        { name: 'Quality Fabrics', description: 'Premium materials that feel luxurious yet casual' },
+                        { name: 'Functional Details', description: 'Purposeful elements like hidden pockets and adjustable features' },
+                        { name: 'Subtle Branding', description: 'Minimal logos and branding elements that don\'t overwhelm' },
+                        { name: 'Versatile Pieces', description: 'Items that can be dressed up or down for different occasions' }
+                    ],
+                    analysis: 'Minimalist streetwear focuses on the perfect balance between comfort and style. The key is to create pieces that look effortless while being carefully constructed. Emphasis should be on fit, fabric quality, and subtle details that elevate the overall design.'
+                },
+                'bohemian style': {
+                    elements: [
+                        { name: 'Flowing Fabrics', description: 'Lightweight, draping materials that move with the body' },
+                        { name: 'Intricate Patterns', description: 'Paisley, floral, and geometric prints in rich colors' },
+                        { name: 'Layered Textures', description: 'Combining different materials like lace, cotton, and silk' },
+                        { name: 'Fringe Details', description: 'Movement-creating elements on hems and sleeves' },
+                        { name: 'Earthy Colors', description: 'Natural tones inspired by earth, sky, and vegetation' },
+                        { name: 'Relaxed Fit', description: 'Comfortable, loose-fitting silhouettes that allow freedom' }
+                    ],
+                    analysis: 'Bohemian style embraces freedom, creativity, and cultural influences. The design philosophy centers on comfort, natural materials, and artistic expression. Layering is key, allowing for personal interpretation and seasonal adaptation.'
+                },
+                default: {
+                    elements: [
+                        { name: 'Balanced Proportions', description: 'Harmonious relationships between different design elements' },
+                        { name: 'Color Harmony', description: 'Thoughtful color combinations that create visual appeal' },
+                        { name: 'Texture Contrast', description: 'Mixing smooth and textured materials for interest' },
+                        { name: 'Functional Design', description: 'Elements that serve both aesthetic and practical purposes' },
+                        { name: 'Attention to Detail', description: 'Careful consideration of finishing touches' },
+                        { name: 'Trend Awareness', description: 'Incorporating current trends while maintaining timeless appeal' }
+                    ],
+                    analysis: 'Good design balances creativity with functionality. Consider your target audience, the intended use of the garment, and how different elements work together to create a cohesive whole.'
+                }
+            },
+            style: {
+                'sustainable fashion': {
+                    analysis: 'Sustainable fashion is about creating timeless pieces that minimize environmental impact. Focus on durable materials, ethical production methods, and designs that won\'t go out of style. Consider organic fabrics, recycled materials, and local production. Design for longevity rather than fast fashion trends. Embrace minimalism, quality construction, and versatile pieces that can be styled multiple ways.'
+                },
+                'futuristic designs': {
+                    analysis: 'Futuristic fashion combines technology with avant-garde aesthetics. Think metallic fabrics, geometric shapes, LED integration, and smart textiles. The silhouettes should be both structured and fluid, representing the balance between technology and humanity. Consider sustainability in future fashion - biodegradable materials, 3D printing, and adaptive designs that can transform based on need or environment.'
+                },
+                default: {
+                    analysis: 'Fashion design is about storytelling through clothing. Every piece should have a purpose and convey an emotion or message. Consider the wearer\'s lifestyle, the garment\'s functionality, and how it fits into their wardrobe. Balance creativity with wearability, and always keep your target audience in mind while pushing creative boundaries.'
+                }
+            }
+        };
+
+        function showLoading() {
+            document.getElementById('loading').classList.add('active');
+            document.getElementById('resultSection').classList.remove('active');
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').classList.remove('active');
+        }
+
+        function showError(message) {
+            document.getElementById('errorText').textContent = message;
+            document.getElementById('errorMessage').style.display = 'block';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        function showSuccess() {
+            document.getElementById('successMessage').style.display = 'block';
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        function findBestMatch(prompt, category) {
+            const responses = mockAIResponses[category];
+            const lowerPrompt = prompt.toLowerCase();
+            
+            for (const key in responses) {
+                if (key !== 'default' && lowerPrompt.includes(key.toLowerCase())) {
+                    return responses[key];
+                }
+            }
+            
+            return responses.default;
+        }
+
+        async function generateColorPalette() {
+            const prompt = document.getElementById('colorPrompt').value.trim();
+            if (!prompt) {
+                showError('Please enter a description for your color palette');
+                return;
+            }
+
+            showLoading();
+            
+            try {
+                // Simulate API delay
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                const response = findBestMatch(prompt, 'colors');
+                displayColorPalette(response.colors, response.analysis);
+                showSuccess();
+            } catch (error) {
+                console.error('Error:', error);
+                showError('An error occurred while generating the color palette. Please try again.');
+            }
+            
+            hideLoading();
+        }
+
+        async function generateDesignElements() {
+            const prompt = document.getElementById('designPrompt').value.trim();
+            if (!prompt) {
+                showError('Please enter a description for your design elements');
+                return;
+            }
+
+            showLoading();
+            
+            try {
+                // Simulate API delay
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                const response = findBestMatch(prompt, 'elements');
+                displayDesignElements(response.elements, response.analysis);
+                showSuccess();
+            } catch (error) {
+                console.error('Error:', error);
+                showError('An error occurred while generating design elements. Please try again.');
+            }
+            
+            hideLoading();
+        }
+
+        async function generateStyleInspiration() {
+            const prompt = document.getElementById('stylePrompt').value.trim();
+            if (!prompt) {
+                showError('Please enter a description for your style inspiration');
+                return;
+            }
+
+            showLoading();
+            
+            try {
+                // Simulate API delay
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                const response = findBestMatch(prompt, 'style');
+                displayStyleInspiration(response.analysis);
+                showSuccess();
+            } catch (error) {
+                console.error('Error:', error);
+                showError('An error occurred while generating style inspiration. Please try again.');
+            }
+            
+            hideLoading();
+        }
+
+        function displayColorPalette(colors, analysis) {
+            const paletteDiv = document.getElementById('colorPalette');
+            paletteDiv.innerHTML = '';
+            
+            colors.forEach(color => {
+                const swatchContainer = document.createElement('div');
+                swatchContainer.style.position = 'relative';
+                swatchContainer.style.marginBottom = '30px';
+                
+                const swatch = document.createElement('div');
+                swatch.className = 'color-swatch';
+                swatch.style.backgroundColor = color;
+                
+                const colorCode = document.createElement('div');
+                colorCode.className = 'color-code';
+                colorCode.textContent = color;
+                
+                swatchContainer.appendChild(swatch);
+                swatchContainer.appendChild(colorCode);
+                paletteDiv.appendChild(swatchContainer);
+            });
+
+            document.getElementById('colorPaletteSection').style.display = 'block';
+            document.getElementById('designElementsSection').style.display = 'none';
+            document.getElementById('analysisText').textContent = analysis;
+            document.getElementById('resultTitle').textContent = 'Color Palette Suggestions';
+            document.getElementById('resultSection').classList.add('active');
+        }
+
+        function displayDesignElements(elements, analysis) {
+            const elementsDiv = document.getElementById('designElements');
+            elementsDiv.innerHTML = '';
+            
+            elements.forEach(element => {
+                const card = document.createElement('div');
+                card.className = 'element-card';
+                card.innerHTML = `
+                    <div class="element-title">${element.name}</div>
+                    <div class="element-description">${element.description}</div>
+                `;
+                elementsDiv.appendChild(card);
+            });
+
+            document.getElementById('colorPaletteSection').style.display = 'none';
+            document.getElementById('designElementsSection').style.display = 'block';
+            document.getElementById('analysisText').textContent = analysis;
+            document.getElementById('resultTitle').textContent = 'Design Elements Suggestions';
+            document.getElementById('resultSection').classList.add('active');
+        }
+
+        function displayStyleInspiration(analysis) {
+            document.getElementById('colorPaletteSection').style.display = 'none';
+            document.getElementById('designElementsSection').style.display = 'none';
+            document.getElementById('analysisText').textContent = analysis;
+            document.getElementById('resultTitle').textContent = 'Style Inspiration';
+            document.getElementById('resultSection').classList.add('active');
+        }
+
+        // Add enter key support for inputs
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('colorPrompt').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') generateColorPalette();
+            });
+            
+            document.getElementById('designPrompt').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') generateDesignElements();
+            });
+            
+            document.getElementById('stylePrompt').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') generateStyleInspiration();
+            });
+        });
+    </script>
+</body>
+</html> 

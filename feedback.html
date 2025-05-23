@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - MadeForMe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e8e3ed;
+            --secondary: #E8F2F0;
+            --accent: #e6f1ef;
+            --text: #111111;
+            --light-gray: #5f5b5b;
+            --cream: #b8b1b1;
+            --gradient: linear-gradient(to right, #07000D, #8b9190);
+            --shadow: 0 4px 15px rgba(0,0,0,0.2);
+            --transition: all 0.3s ease;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Poppins', sans-serif; 
+        }
+        
+        body { 
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--text); 
+            line-height: 1.6; 
+            min-height: 100vh;
+        }
+
+        .feedback-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 15px;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: #fafafa;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--text);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .rating-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .rating-btn {
+            background: var(--secondary);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+            color: var(--text);
+        }
+
+        .rating-btn:hover,
+        .rating-btn.active {
+            background: var(--gradient);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .submit-btn {
+            background: var(--gradient);
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 20px;
+            align-self: center;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+            border-left: 4px solid #c62828;
+        }
+
+        .success-message {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+            border-left: 4px solid #2e7d32;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 30px;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 10px 20px;
+            border-radius: 25px;
+            background: var(--secondary);
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .feedback-container {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            .rating-group {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="feedback-container">
+        <h1 class="page-title">Feedback</h1>
+        
+        <div class="navigation-links" style="margin-bottom: 30px;">
+            <a href="about-us.html" class="nav-link">
+                <i class="fas fa-info-circle"></i>
+                About Us
+            </a>
+            <a href="bug-report.html" class="nav-link">
+                <i class="fas fa-bug"></i>
+                Report a Bug
+            </a>
+            <a href="index.html" class="nav-link">
+                <i class="fas fa-home"></i>
+                Back to Home
+            </a>
+        </div>
+
+        <form class="feedback-form" id="feedbackForm">
+            <div class="form-group">
+                <label for="feedbackType">
+                    <i class="fas fa-comment"></i> Feedback Type
+                </label>
+                <select id="feedbackType" required>
+                    <option value="">Select feedback type</option>
+                    <option value="suggestion">Suggestion</option>
+                    <option value="compliment">Compliment</option>
+                    <option value="complaint">Complaint</option>
+                    <option value="question">Question</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <i class="fas fa-star"></i> Overall Experience
+                </label>
+                <div class="rating-group">
+                    <button type="button" class="rating-btn" data-rating="1">Poor</button>
+                    <button type="button" class="rating-btn" data-rating="2">Fair</button>
+                    <button type="button" class="rating-btn" data-rating="3">Good</button>
+                    <button type="button" class="rating-btn" data-rating="4">Very Good</button>
+                    <button type="button" class="rating-btn" data-rating="5">Excellent</button>
+                </div>
+                <input type="hidden" id="rating" required>
+            </div>
+
+            <div class="form-group">
+                <label for="feedbackTitle">
+                    <i class="fas fa-heading"></i> Title
+                </label>
+                <input type="text" id="feedbackTitle" placeholder="Brief summary of your feedback" required>
+            </div>
+
+            <div class="form-group">
+                <label for="feedbackContent">
+                    <i class="fas fa-align-left"></i> Detailed Feedback
+                </label>
+                <textarea id="feedbackContent" placeholder="Please share your thoughts, suggestions, or concerns in detail" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="email">
+                    <i class="fas fa-envelope"></i> Your Email
+                </label>
+                <input type="email" id="email" placeholder="We'll use this to follow up on your feedback" required>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-paper-plane"></i> Submit Feedback
+            </button>
+        </form>
+
+        <div class="error-message" id="errorMessage">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span id="errorText"></span>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i>
+            Thank you for your feedback! We appreciate your input.
+        </div>
+
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
+
+    <script>
+        // Rating button functionality
+        const ratingButtons = document.querySelectorAll('.rating-btn');
+        const ratingInput = document.getElementById('rating');
+
+        ratingButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                ratingButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Update hidden input value
+                ratingInput.value = button.dataset.rating;
+            });
+        });
+
+        // Form submission
+        document.getElementById('feedbackForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const feedbackType = document.getElementById('feedbackType').value;
+            const rating = document.getElementById('rating').value;
+            const feedbackTitle = document.getElementById('feedbackTitle').value.trim();
+            const feedbackContent = document.getElementById('feedbackContent').value.trim();
+            const email = document.getElementById('email').value.trim();
+
+            // Validation
+            if (!feedbackType || !rating || !feedbackTitle || !feedbackContent || !email) {
+                showError('Please fill in all required fields');
+                return;
+            }
+
+            if (feedbackContent.length < 20) {
+                showError('Please provide more detailed feedback');
+                return;
+            }
+
+            // Show success message
+            showSuccess();
+            
+            // Reset form
+            e.target.reset();
+            ratingButtons.forEach(btn => btn.classList.remove('active'));
+        });
+
+        function showError(message) {
+            document.getElementById('errorText').textContent = message;
+            document.getElementById('errorMessage').style.display = 'block';
+            document.getElementById('successMessage').style.display = 'none';
+            
+            // Scroll to error message
+            document.getElementById('errorMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function showSuccess() {
+            document.getElementById('successMessage').style.display = 'block';
+            document.getElementById('errorMessage').style.display = 'none';
+            
+            // Auto-hide success message after 5 seconds
+            setTimeout(() => {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html> 

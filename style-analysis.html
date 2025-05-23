@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style Analysis - MadeForMe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e8e3ed;
+            --secondary: #E8F2F0;
+            --accent: #e6f1ef;
+            --text: #111111;
+            --light-gray: #5f5b5b;
+            --cream: #b8b1b1;
+            --gradient: linear-gradient(to right, #07000D, #8b9190);
+            --shadow: 0 4px 15px rgba(0,0,0,0.2);
+            --transition: all 0.3s ease;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Poppins', sans-serif; 
+        }
+        
+        body { 
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--text); 
+            line-height: 1.6; 
+            min-height: 100vh;
+        }
+
+        .nav-header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .logo span {
+            color: var(--light-gray);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--light-gray);
+        }
+
+        .style-analysis-container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .style-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        .form-group textarea,
+        .form-group select,
+        .form-group input {
+            padding: 15px;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: #fafafa;
+        }
+
+        .form-group textarea:focus,
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--text);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .submit-btn {
+            background: var(--gradient);
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 20px;
+            align-self: center;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result-section {
+            margin-top: 40px;
+            padding: 30px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .result-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--text);
+            text-align: center;
+        }
+
+        .analysis-sections {
+            display: grid;
+            gap: 25px;
+        }
+
+        .analysis-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .analysis-card h3 {
+            color: var(--text);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .analysis-card p {
+            color: var(--light-gray);
+            line-height: 1.8;
+        }
+
+        .color-recommendations {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .color-swatch {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .color-swatch:hover::after {
+            content: attr(data-color);
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+
+        .outfit-suggestions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .outfit-card {
+            background: var(--primary);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .outfit-card h4 {
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .outfit-card p {
+            font-size: 0.9rem;
+            color: var(--light-gray);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 30px;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 10px 20px;
+            border-radius: 25px;
+            background: var(--secondary);
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .loading {
+            text-align: center;
+            display: none;
+            margin: 40px 0;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--primary);
+            border-top: 4px solid var(--text);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+            border-left: 4px solid #c62828;
+        }
+
+        .success-message {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+            border-left: 4px solid #2e7d32;
+        }
+
+        .form-hint {
+            font-size: 0.9rem;
+            color: var(--light-gray);
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .style-analysis-container {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .color-recommendations {
+                justify-content: center;
+            }
+
+            .outfit-suggestions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Made<span>ForMe</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Collection.html">Collections</a></li>
+                <li><a href="community.html">Community</a></li>
+                <li><a href="about-us.html">About Us</a></li>
+                <li><a href="bug-report.html">Report Bug</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+                <li><a href="Log.html">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="style-analysis-container">
+        <h1 class="page-title">AI Style Analysis</h1>
+        
+        <form class="style-form" id="styleForm">
+            <div class="form-group">
+                <label for="stylePreferences">
+                    <i class="fas fa-palette"></i> Describe your style preferences:
+                </label>
+                <textarea 
+                    id="stylePreferences" 
+                    rows="4" 
+                    placeholder="Tell us about your favorite colors, patterns, silhouettes, and style inspirations. For example: 'I love earth tones, flowing fabrics, and bohemian styles with vintage touches...'"
+                    required
+                ></textarea>
+                <span class="form-hint">Be as detailed as possible for better recommendations!</span>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="occasion">
+                        <i class="fas fa-calendar"></i> What's the occasion?
+                    </label>
+                    <select id="occasion" required>
+                        <option value="">Select an occasion</option>
+                        <option value="casual">Casual Daily Wear</option>
+                        <option value="business">Business/Professional</option>
+                        <option value="formal">Formal Events</option>
+                        <option value="party">Party/Social</option>
+                        <option value="date">Date Night</option>
+                        <option value="wedding">Wedding Guest</option>
+                        <option value="travel">Travel</option>
+                        <option value="special">Special Event</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="season">
+                        <i class="fas fa-sun"></i> Season:
+                    </label>
+                    <select id="season" required>
+                        <option value="">Select a season</option>
+                        <option value="spring">Spring</option>
+                        <option value="summer">Summer</option>
+                        <option value="fall">Fall</option>
+                        <option value="winter">Winter</option>
+                        <option value="year-round">Year-round</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="bodyType">
+                        <i class="fas fa-user"></i> Body Type (Optional):
+                    </label>
+                    <select id="bodyType">
+                        <option value="">Select body type</option>
+                        <option value="pear">Pear</option>
+                        <option value="apple">Apple</option>
+                        <option value="hourglass">Hourglass</option>
+                        <option value="rectangle">Rectangle</option>
+                        <option value="inverted-triangle">Inverted Triangle</option>
+                        <option value="prefer-not-to-say">Prefer not to say</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="budget">
+                        <i class="fas fa-dollar-sign"></i> Budget Range:
+                    </label>
+                    <select id="budget">
+                        <option value="">Select budget</option>
+                        <option value="budget">Budget-friendly ($0-50)</option>
+                        <option value="moderate">Moderate ($50-150)</option>
+                        <option value="premium">Premium ($150-500)</option>
+                        <option value="luxury">Luxury ($500+)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="gender">
+                        <i class="fas fa-venus-mars"></i> Gender:
+                    </label>
+                    <select id="gender" required>
+                        <option value="">Select gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="non-binary">Non-binary</option>
+                        <option value="prefer-not-to-say">Prefer not to say</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="ageGroup">
+                        <i class="fas fa-user-clock"></i> Age Group:
+                    </label>
+                    <select id="ageGroup" required>
+                        <option value="">Select age group</option>
+                        <option value="teen">13-19</option>
+                        <option value="young-adult">20-29</option>
+                        <option value="adult">30-39</option>
+                        <option value="middle-aged">40-49</option>
+                        <option value="senior">50+</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-magic"></i> Analyze My Style
+            </button>
+        </form>
+
+        <div class="error-message" id="errorMessage">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span id="errorText"></span>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i>
+            Style analysis completed successfully!
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Analyzing your style preferences...</p>
+            <small>This may take a few moments while we craft your personalized recommendations</small>
+        </div>
+
+        <div class="result-section" id="resultSection">
+            <h2 class="result-title">Your Personalized Style Analysis</h2>
+            <div class="analysis-sections" id="analysisResult"></div>
+        </div>
+
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
+
+    <script>
+        // Style analysis database with modular structure
+        const styleAnalysisDatabase = {
+            colorPalettes: {
+                'earth tones': ['#8B4513', '#D2B48C', '#F4A460', '#DEB887', '#CD853F'],
+                'vibrant': ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA726', '#AB47BC'],
+                'pastel': ['#FFB3BA', '#FFDFBA', '#FFFFBA', '#BAFFC9', '#BAE1FF'],
+                'monochrome': ['#000000', '#404040', '#808080', '#C0C0C0', '#FFFFFF'],
+                'jewel tones': ['#4B0082', '#008B8B', '#B22222', '#FF8C00', '#9932CC'],
+                'neutral': ['#F5F5DC', '#D3D3D3', '#A9A9A9', '#696969', '#2F4F4F'],
+                'bohemian': ['#8B4513', '#DAA520', '#CD853F', '#DEB887', '#F4A460'],
+                'minimalist': ['#FFFFFF', '#F8F8FF', '#E6E6FA', '#D3D3D3', '#A9A9A9'],
+                'romantic': ['#FFB6C1', '#FFC0CB', '#FFCCCB', '#F0E68C', '#E6E6FA'],
+                'edgy': ['#000000', '#8B0000', '#2F4F4F', '#696969', '#A9A9A9'],
+                'coastal': ['#87CEEB', '#4682B4', '#B0E0E6', '#F0F8FF', '#E0FFFF'],
+                'desert': ['#DEB887', '#D2691E', '#CD853F', '#F4A460', '#DAA520'],
+                'forest': ['#228B22', '#006400', '#556B2F', '#8B4513', '#654321'],
+                'urban': ['#708090', '#2F4F4F', '#696969', '#A9A9A9', '#D3D3D3'],
+                'tropical': ['#FF1493', '#00CED1', '#FFD700', '#32CD32', '#FF4500'],
+                'nordic': ['#F5F5F5', '#E8E8E8', '#D3D3D3', '#A9A9A9', '#808080'],
+                'mediterranean': ['#1E90FF', '#FFD700', '#FF6347', '#32CD32', '#FF69B4']
+            },
+
+            styleCategories: {
+                male: {
+                    classic: ['Tailored suits', 'Oxford shirts', 'Chinos', 'Leather shoes'],
+                    streetwear: ['Graphic tees', 'Hoodies', 'Sneakers', 'Cargo pants'],
+                    business: ['Blazers', 'Dress shirts', 'Slim-fit trousers', 'Loafers'],
+                    casual: ['Denim jackets', 'Polo shirts', 'Jeans', 'Casual sneakers'],
+                    sporty: ['Athletic wear', 'Performance fabrics', 'Sports shoes', 'Track pants'],
+                    vintage: ['Retro jackets', 'Vintage denim', 'Classic sneakers', 'Heritage pieces'],
+                    minimalist: ['Clean lines', 'Neutral colors', 'Simple patterns', 'Quality basics'],
+                    avantGarde: ['Unique pieces', 'Bold patterns', 'Statement accessories', 'Experimental cuts'],
+                    techwear: ['Technical jackets', 'Cargo pants', 'Performance sneakers', 'Utility vests'],
+                    athleisure: ['Performance joggers', 'Tech hoodies', 'Athletic sneakers', 'Compression wear'],
+                    smartCasual: ['Chino pants', 'Oxford shirts', 'Loafers', 'Lightweight blazers'],
+                    workwear: ['Denim overalls', 'Work boots', 'Utility jackets', 'Canvas pants'],
+                    preppy: ['Polo shirts', 'Khaki pants', 'Boat shoes', 'Sweater vests'],
+                    gothic: ['Black leather jackets', 'Dark denim', 'Combat boots', 'Statement accessories'],
+                    military: ['Cargo pants', 'Field jackets', 'Combat boots', 'Utility belts']
+                },
+                female: {
+                    classic: ['Tailored blazers', 'Pencil skirts', 'Blouses', 'Heels'],
+                    streetwear: ['Oversized tees', 'Crop tops', 'Mom jeans', 'Chunky sneakers'],
+                    business: ['Sheath dresses', 'Blazers', 'Pencil skirts', 'Pumps'],
+                    casual: ['Floral dresses', 'Cardigans', 'Jeans', 'Ankle boots'],
+                    sporty: ['Athletic leggings', 'Sports bras', 'Running shoes', 'Performance tops'],
+                    vintage: ['Retro dresses', 'High-waisted pants', 'Vintage accessories', 'Classic pieces'],
+                    minimalist: ['Clean silhouettes', 'Neutral tones', 'Simple patterns', 'Quality basics'],
+                    avantGarde: ['Unique pieces', 'Bold patterns', 'Statement accessories', 'Experimental cuts'],
+                    techwear: ['Technical dresses', 'Cargo skirts', 'Performance sneakers', 'Utility belts'],
+                    athleisure: ['Yoga pants', 'Sports bras', 'Running shoes', 'Athletic jackets'],
+                    smartCasual: ['Midi skirts', 'Blouses', 'Ankle boots', 'Lightweight cardigans'],
+                    workwear: ['Overalls', 'Work boots', 'Utility dresses', 'Canvas skirts'],
+                    preppy: ['Polo dresses', 'Pleated skirts', 'Loafers', 'Sweater vests'],
+                    gothic: ['Black dresses', 'Leather jackets', 'Combat boots', 'Statement jewelry'],
+                    military: ['Cargo pants', 'Field jackets', 'Combat boots', 'Utility belts']
+                },
+                nonBinary: {
+                    androgynous: ['Gender-neutral pieces', 'Oversized fits', 'Minimal accessories', 'Neutral colors'],
+                    fluid: ['Mix of styles', 'Versatile pieces', 'Adaptable fits', 'Personal expression'],
+                    modern: ['Contemporary cuts', 'Innovative designs', 'Mixed elements', 'Unique combinations'],
+                    techwear: ['Technical pieces', 'Utility wear', 'Performance shoes', 'Functional accessories'],
+                    athleisure: ['Comfortable layers', 'Performance wear', 'Athletic shoes', 'Sporty accessories'],
+                    smartCasual: ['Versatile pieces', 'Comfortable shoes', 'Light layers', 'Minimal accessories'],
+                    workwear: ['Durable pieces', 'Comfortable shoes', 'Utility wear', 'Functional accessories'],
+                    preppy: ['Classic pieces', 'Comfortable shoes', 'Layered looks', 'Traditional accessories'],
+                    gothic: ['Dark pieces', 'Statement shoes', 'Layered looks', 'Bold accessories'],
+                    military: ['Utility pieces', 'Comfortable shoes', 'Layered looks', 'Functional accessories']
+                }
+            },
+
+            occasionRecommendations: {
+                male: {
+                    casual: ['Relaxed fit jeans', 'Graphic tees', 'Casual sneakers', 'Denim jackets'],
+                    business: ['Tailored suits', 'Dress shirts', 'Leather shoes', 'Professional accessories'],
+                    formal: ['Tuxedos', 'Dress shoes', 'Cufflinks', 'Formal accessories'],
+                    party: ['Statement pieces', 'Trendy items', 'Party shoes', 'Bold accessories'],
+                    date: ['Smart casual', 'Well-fitted pieces', 'Stylish shoes', 'Subtle accessories'],
+                    wedding: ['Formal suits', 'Dress shoes', 'Ties', 'Wedding-appropriate accessories'],
+                    travel: ['Comfortable layers', 'Versatile pieces', 'Travel shoes', 'Practical accessories'],
+                    interview: ['Tailored suit', 'Crisp shirt', 'Leather shoes', 'Professional accessories'],
+                    graduation: ['Formal suit', 'Dress shirt', 'Leather shoes', 'Classic accessories'],
+                    beach: ['Linen shirts', 'Swim shorts', 'Sandals', 'Beach accessories'],
+                    hiking: ['Performance pants', 'Moisture-wicking shirts', 'Hiking boots', 'Outdoor gear'],
+                    gym: ['Performance shorts', 'Moisture-wicking shirts', 'Training shoes', 'Fitness accessories'],
+                    festival: ['Graphic tees', 'Comfortable pants', 'Sturdy shoes', 'Festival accessories']
+                },
+                female: {
+                    casual: ['Jeans', 'T-shirts', 'Sneakers', 'Casual jackets'],
+                    business: ['Blazers', 'Pencil skirts', 'Pumps', 'Professional accessories'],
+                    formal: ['Evening gowns', 'Heels', 'Elegant jewelry', 'Formal accessories'],
+                    party: ['Statement dresses', 'Party shoes', 'Bold jewelry', 'Trendy accessories'],
+                    date: ['Flattering pieces', 'Stylish shoes', 'Subtle jewelry', 'Romantic accessories'],
+                    wedding: ['Wedding guest dresses', 'Elegant shoes', 'Wedding-appropriate jewelry', 'Formal accessories'],
+                    travel: ['Comfortable layers', 'Versatile pieces', 'Travel shoes', 'Practical accessories'],
+                    interview: ['Tailored suit', 'Blouse', 'Pumps', 'Professional accessories'],
+                    graduation: ['Formal dress', 'Heels', 'Classic jewelry', 'Elegant accessories'],
+                    beach: ['Swimsuits', 'Cover-ups', 'Sandals', 'Beach accessories'],
+                    hiking: ['Performance leggings', 'Moisture-wicking tops', 'Hiking boots', 'Outdoor gear'],
+                    gym: ['Sports bras', 'Leggings', 'Training shoes', 'Fitness accessories'],
+                    festival: ['Bohemian dresses', 'Comfortable shoes', 'Festival accessories', 'Layered jewelry']
+                },
+                nonBinary: {
+                    casual: ['Comfortable basics', 'Versatile pieces', 'Casual shoes', 'Personal accessories'],
+                    business: ['Professional pieces', 'Neutral colors', 'Business shoes', 'Minimal accessories'],
+                    formal: ['Elegant pieces', 'Formal shoes', 'Statement accessories', 'Personal style elements'],
+                    party: ['Expressive pieces', 'Party shoes', 'Bold accessories', 'Personal style elements'],
+                    date: ['Flattering pieces', 'Stylish shoes', 'Personal accessories', 'Comfortable elements'],
+                    wedding: ['Formal pieces', 'Elegant shoes', 'Wedding-appropriate accessories', 'Personal style elements'],
+                    travel: ['Comfortable layers', 'Versatile pieces', 'Travel shoes', 'Practical accessories'],
+                    interview: ['Professional pieces', 'Comfortable shoes', 'Minimal accessories', 'Polished look'],
+                    graduation: ['Formal pieces', 'Comfortable shoes', 'Classic accessories', 'Elegant look'],
+                    beach: ['Swim pieces', 'Comfortable shoes', 'Beach accessories', 'Layered look'],
+                    hiking: ['Performance pieces', 'Comfortable shoes', 'Outdoor gear', 'Layered look'],
+                    gym: ['Performance pieces', 'Comfortable shoes', 'Fitness accessories', 'Layered look']
+                }
+            },
+
+            seasonRecommendations: {
+                spring: {
+                    colors: ['Pastels', 'Floral prints', 'Light neutrals', 'Fresh tones', 'Soft greens', 'Light blues'],
+                    fabrics: ['Light cotton', 'Linen', 'Silk', 'Light wool', 'Chiffon', 'Seersucker'],
+                    layers: ['Light jackets', 'Cardigans', 'Scarves', 'Light sweaters', 'Raincoats', 'Windbreakers'],
+                    accessories: ['Light scarves', 'Straw hats', 'Light gloves', 'Spring bags', 'Umbrellas', 'Sunglasses']
+                },
+                summer: {
+                    colors: ['Bright colors', 'White', 'Neon', 'Tropical prints', 'Ocean blues', 'Sunset tones'],
+                    fabrics: ['Cotton', 'Linen', 'Rayon', 'Light synthetics', 'Seersucker', 'Chambray'],
+                    layers: ['Light cover-ups', 'Beach wear', 'Sun protection', 'Breathable pieces', 'Swim cover-ups', 'Sarongs'],
+                    accessories: ['Sunglasses', 'Straw hats', 'Beach bags', 'Sandals', 'Swim accessories', 'Sun hats']
+                },
+                fall: {
+                    colors: ['Earth tones', 'Deep colors', 'Warm neutrals', 'Rich prints', 'Burgundy', 'Olive'],
+                    fabrics: ['Wool', 'Tweed', 'Corduroy', 'Heavy cotton', 'Flannel', 'Suede'],
+                    layers: ['Sweaters', 'Jackets', 'Scarves', 'Boots', 'Coats', 'Vests'],
+                    accessories: ['Wool scarves', 'Leather gloves', 'Fall hats', 'Boots', 'Belts', 'Fall bags']
+                },
+                winter: {
+                    colors: ['Dark colors', 'Neutrals', 'Rich tones', 'Holiday colors', 'Deep blues', 'Emerald'],
+                    fabrics: ['Heavy wool', 'Cashmere', 'Fur', 'Thick synthetics', 'Fleece', 'Down'],
+                    layers: ['Coats', 'Heavy sweaters', 'Thermal wear', 'Winter accessories', 'Snow gear', 'Insulated pieces'],
+                    accessories: ['Winter hats', 'Gloves', 'Scarves', 'Boots', 'Winter bags', 'Earmuffs']
+                }
+            },
+
+            styleCombinations: {
+                bohemian: {
+                    classic: ['Mix vintage pieces with modern classics', 'Layer delicate jewelry with structured pieces'],
+                    streetwear: ['Combine flowy pieces with urban elements', 'Mix boho prints with street style'],
+                    minimalist: ['Balance boho patterns with clean lines', 'Mix statement pieces with basics']
+                },
+                streetwear: {
+                    classic: ['Mix street pieces with tailored items', 'Combine casual with formal elements'],
+                    minimalist: ['Balance bold pieces with clean lines', 'Mix statement items with basics'],
+                    sporty: ['Combine street style with athletic wear', 'Mix urban pieces with performance items']
+                },
+                minimalist: {
+                    classic: ['Mix timeless pieces with modern basics', 'Combine structured items with clean lines'],
+                    streetwear: ['Balance minimal pieces with urban elements', 'Mix basics with statement items'],
+                    sporty: ['Combine clean lines with athletic wear', 'Mix minimal pieces with performance items']
+                }
+            },
+
+            styleTips: {
+                bohemian: [
+                    'Layer different textures for depth',
+                    'Mix patterns with solid colors',
+                    'Accessorize with statement pieces',
+                    'Balance flowy pieces with structured items'
+                ],
+                streetwear: [
+                    'Mix high and low fashion',
+                    'Layer pieces for dimension',
+                    'Add statement accessories',
+                    'Balance bold pieces with basics'
+                ],
+                minimalist: [
+                    'Focus on quality over quantity',
+                    'Invest in versatile basics',
+                    'Keep color palette neutral',
+                    'Pay attention to fit and fabric'
+                ],
+                classic: [
+                    'Invest in timeless pieces',
+                    'Focus on quality materials',
+                    'Keep accessories minimal',
+                    'Maintain clean lines'
+                ]
+            },
+
+            getStyleRecommendations(preferences, occasion, season, bodyType, budget, gender, ageGroup) {
+                const lowerPrefs = preferences.toLowerCase();
+                let styleCategory = 'classic';
+                let colorKey = 'neutral';
+
+                // Determine style category
+                if (lowerPrefs.includes('bohemian') || lowerPrefs.includes('boho')) styleCategory = 'bohemian';
+                else if (lowerPrefs.includes('minimalist') || lowerPrefs.includes('minimal')) styleCategory = 'minimalist';
+                else if (lowerPrefs.includes('streetwear') || lowerPrefs.includes('street')) styleCategory = 'streetwear';
+                else if (lowerPrefs.includes('vintage') || lowerPrefs.includes('retro')) styleCategory = 'vintage';
+                else if (lowerPrefs.includes('romantic') || lowerPrefs.includes('pink')) colorKey = 'romantic';
+                else if (lowerPrefs.includes('edgy') || lowerPrefs.includes('dark')) colorKey = 'edgy';
+
+                // Get gender-specific recommendations
+                const genderKey = gender === 'non-binary' ? 'nonBinary' : gender;
+                const genderStyles = this.styleCategories[genderKey] || this.styleCategories.nonBinary;
+                const occasionRecs = this.occasionRecommendations[genderKey] || this.occasionRecommendations.nonBinary;
+                const seasonRecs = this.seasonRecommendations[season];
+
+                return {
+                    styleCategory,
+                    colors: this.colorPalettes[colorKey] || this.colorPalettes.neutral,
+                    analysis: this.generateAnalysis(preferences, occasion, season, styleCategory, bodyType, budget, gender, ageGroup),
+                    outfits: this.generateOutfitSuggestions(styleCategory, occasion, season, gender),
+                    tips: this.generateStyleTips(styleCategory, bodyType, occasion, gender, ageGroup),
+                    genderSpecific: {
+                        styles: genderStyles[styleCategory] || genderStyles.classic,
+                        occasion: occasionRecs[occasion] || occasionRecs.casual,
+                        season: seasonRecs
+                    },
+                    combinations: this.styleCombinations[styleCategory] || {},
+                    detailedTips: this.styleTips[styleCategory] || []
+                };
+            },
+
+            generateAnalysis(preferences, occasion, season, styleCategory, bodyType, budget, gender, ageGroup) {
+                let analysis = '';
+
+                // Style analysis
+                const styleAnalyses = {
+                    bohemian: `Your bohemian style preference reflects a free-spirited, artistic personality. This style embraces flowing fabrics, earthy colors, and eclectic patterns. For ${occasion} occasions during ${season}, focus on layered textures, natural materials, and statement accessories that tell a story.`,
+                    minimalist: `Your minimalist approach to fashion shows sophistication and confidence. This style is about quality over quantity, clean lines, and versatile pieces. For ${occasion} settings in ${season}, invest in well-tailored basics in neutral colors that can be mixed and matched effortlessly.`,
+                    streetwear: `Your streetwear style shows you're fashion-forward and urban-inspired. This style combines comfort with contemporary trends. For ${occasion} occasions during ${season}, focus on statement pieces that reflect current street style while maintaining your personal edge.`,
+                    vintage: `Your vintage style preference shows appreciation for timeless fashion. This style draws inspiration from past decades while maintaining modern relevance. For ${occasion} occasions during ${season}, look for classic silhouettes with a modern twist and quality vintage-inspired pieces.`,
+                    classic: `Your classic style preference shows timeless elegance and sophistication. This style focuses on traditional silhouettes, quality fabrics, and versatile pieces. For ${occasion} occasions during ${season}, invest in well-tailored classics that will never go out of style.`
+                };
+
+                analysis = styleAnalyses[styleCategory] || styleAnalyses.classic;
+
+                // Add gender-specific analysis
+                const genderAnalysis = {
+                    male: 'Your style reflects a modern approach to menswear, balancing classic elements with contemporary trends.',
+                    female: 'Your style showcases a sophisticated approach to womenswear, combining timeless pieces with current trends.',
+                    'non-binary': 'Your style represents a unique blend of elements, creating a personal expression that transcends traditional gender norms.'
+                };
+
+                analysis += ` ${genderAnalysis[gender] || ''}`;
+
+                // Add age-specific advice
+                const ageAdvice = {
+                    teen: 'Focus on trendy pieces that can be mixed with basics for a balanced wardrobe.',
+                    'young-adult': 'Build a versatile wardrobe with investment pieces that can transition from casual to professional.',
+                    adult: 'Invest in quality pieces that reflect your personal style while maintaining professionalism.',
+                    'middle-aged': 'Focus on timeless pieces that can be updated with current trends.',
+                    senior: 'Emphasize comfort and quality while maintaining a sophisticated style.'
+                };
+
+                if (ageAdvice[ageGroup]) {
+                    analysis += ` ${ageAdvice[ageGroup]}`;
+                }
+
+                return analysis;
+            },
+
+            generateOutfitSuggestions(styleCategory, occasion, season, gender) {
+                const outfitDatabase = {
+                    bohemian: {
+                        casual: [
+                            {
+                                name: 'Bohemian Casual',
+                                description: 'Flowy maxi dress with layered jewelry and sandals'
+                            }
+                        ]
+                    }
+                };
+                return outfitDatabase[styleCategory]?.[occasion] || [];
+            },
+
+            generateStyleTips(styleCategory, bodyType, occasion, gender, ageGroup) {
+                const tips = [
+                    'Always choose quality over quantity when building your wardrobe',
+                    'Invest in versatile pieces that can be mixed and matched',
+                    'Consider your body type when selecting silhouettes',
+                    'Accessorize thoughtfully to complete your look'
+                ];
+
+                const styleTips = {
+                    bohemian: 'Layer different textures and patterns for a rich, bohemian look',
+                    classic: 'Focus on timeless pieces that never go out of style',
+                    streetwear: 'Mix high and low fashion for an authentic street style',
+                    minimalist: 'Keep your color palette neutral and focus on clean lines'
+                };
+
+                const genderTips = {
+                    male: 'Consider tailored pieces for a professional look',
+                    female: 'Focus on feminine details and versatile pieces',
+                    'non-binary': 'Embrace a mix of styles that reflect your personal expression'
+                };
+
+                const ageAdvice = {
+                    teen: 'Focus on trendy pieces that can be mixed with basics for a balanced wardrobe.',
+                    'young-adult': 'Build a versatile wardrobe with investment pieces that can transition from casual to professional.',
+                    adult: 'Invest in quality pieces that reflect your personal style while maintaining professionalism.',
+                    'middle-aged': 'Focus on timeless pieces that can be updated with current trends.',
+                    senior: 'Emphasize comfort and quality while maintaining a sophisticated style.'
+                };
+
+                if (styleTips[styleCategory]) tips.push(styleTips[styleCategory]);
+                if (genderTips[gender]) tips.push(genderTips[gender]);
+                if (ageAdvice[ageGroup]) tips.push(ageAdvice[ageGroup]);
+
+                return tips.slice(0, 4);
+            }
+        };
+
+        // Form submission handler
+        document.getElementById('styleForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            try {
+                // Get form values
+                const stylePreferences = document.getElementById('stylePreferences')?.value?.trim();
+                const occasion = document.getElementById('occasion')?.value;
+                const season = document.getElementById('season')?.value;
+                const bodyType = document.getElementById('bodyType')?.value;
+                const budget = document.getElementById('budget')?.value;
+                const gender = document.getElementById('gender')?.value;
+                const ageGroup = document.getElementById('ageGroup')?.value;
+
+                // Enhanced validation
+                if (!stylePreferences || !occasion || !season || !gender || !ageGroup) {
+                    throw new Error('Please fill in all required fields (marked with *)');
+                }
+
+                if (stylePreferences.length < 20) {
+                    throw new Error('Please provide more detailed style preferences (at least 20 characters)');
+                }
+
+                // Show loading state
+                showLoading();
+
+                // Validate style analysis database
+                if (!styleAnalysisDatabase || typeof styleAnalysisDatabase.getStyleRecommendations !== 'function') {
+                    throw new Error('Style analysis system is not properly initialized');
+                }
+
+                // Generate style analysis with error handling
+                const analysis = styleAnalysisDatabase.getStyleRecommendations(
+                    stylePreferences,
+                    occasion,
+                    season,
+                    bodyType || 'prefer-not-to-say',
+                    budget || 'moderate',
+                    gender,
+                    ageGroup
+                );
+
+                // Validate analysis results
+                if (!analysis) {
+                    throw new Error('Unable to generate style analysis');
+                }
+
+                // Display results
+                displayResults(analysis);
+                showSuccess();
+                
+            } catch (error) {
+                console.error('Style Analysis Error:', error);
+                showError(error.message || 'An error occurred while analyzing your style. Please try again.');
+            } finally {
+                hideLoading();
+            }
+        });
+
+        function showLoading() {
+            const loading = document.getElementById('loading');
+            const resultSection = document.getElementById('resultSection');
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            const submitBtn = document.querySelector('.submit-btn');
+
+            if (loading) loading.classList.add('active');
+            if (resultSection) resultSection.classList.remove('active');
+            if (errorMessage) errorMessage.style.display = 'none';
+            if (successMessage) successMessage.style.display = 'none';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+            }
+        }
+
+        function hideLoading() {
+            const loading = document.getElementById('loading');
+            const submitBtn = document.querySelector('.submit-btn');
+
+            if (loading) loading.classList.remove('active');
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-magic"></i> Analyze My Style';
+            }
+        }
+
+        function showError(message) {
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            const successMessage = document.getElementById('successMessage');
+
+            if (errorText) errorText.textContent = message;
+            if (errorMessage) {
+                errorMessage.style.display = 'block';
+                errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            if (successMessage) successMessage.style.display = 'none';
+        }
+
+        function showSuccess() {
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (successMessage) {
+                successMessage.style.display = 'block';
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 3000);
+            }
+            if (errorMessage) errorMessage.style.display = 'none';
+        }
+
+        function displayResults(analysis) {
+            const resultContainer = document.getElementById('analysisResult');
+            const resultSection = document.getElementById('resultSection');
+            
+            if (!resultContainer || !resultSection) {
+                throw new Error('Result display elements not found');
+            }
+
+            try {
+                // Validate analysis data
+                if (!analysis) {
+                    throw new Error('No analysis data available');
+                }
+
+                // Ensure all required properties exist with fallbacks
+                const safeAnalysis = {
+                    analysis: analysis.analysis || 'No style analysis available',
+                    colors: Array.isArray(analysis.colors) ? analysis.colors : [],
+                    genderSpecific: {
+                        styles: Array.isArray(analysis.genderSpecific?.styles) ? analysis.genderSpecific.styles : [],
+                        occasion: Array.isArray(analysis.genderSpecific?.occasion) ? analysis.genderSpecific.occasion : [],
+                        season: {
+                            colors: Array.isArray(analysis.genderSpecific?.season?.colors) ? analysis.genderSpecific.season.colors : [],
+                            fabrics: Array.isArray(analysis.genderSpecific?.season?.fabrics) ? analysis.genderSpecific.season.fabrics : [],
+                            layers: Array.isArray(analysis.genderSpecific?.season?.layers) ? analysis.genderSpecific.season.layers : []
+                        }
+                    },
+                    tips: Array.isArray(analysis.tips) ? analysis.tips : []
+                };
+
+                // Get form values for display
+                const occasion = document.getElementById('occasion')?.value || 'selected occasion';
+                const season = document.getElementById('season')?.value || 'selected season';
+                const gender = document.getElementById('gender')?.value || 'selected gender';
+
+                // Create HTML content with error handling
+                const content = `
+                    <div class="analysis-card">
+                        <h3><i class="fas fa-user-circle"></i> Your Style Profile</h3>
+                        <p>${safeAnalysis.analysis}</p>
+                    </div>
+
+                    <div class="analysis-card">
+                        <h3><i class="fas fa-palette"></i> Recommended Color Palette</h3>
+                        <div class="color-recommendations">
+                            ${safeAnalysis.colors.map(color => `
+                                <div class="color-swatch" style="background-color: ${color}" data-color="${color}"></div>
+                            `).join('')}
+                        </div>
+                        <p>These colors complement your style preferences and work well for ${occasion} occasions during ${season}.</p>
+                    </div>
+
+                    <div class="analysis-card">
+                        <h3><i class="fas fa-tshirt"></i> Gender-Specific Recommendations</h3>
+                        <div class="outfit-suggestions">
+                            ${safeAnalysis.genderSpecific.styles.map(item => `
+                                <div class="outfit-card">
+                                    <h4>${item}</h4>
+                                    <p>Perfect for your style and ${gender} preferences</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="analysis-card">
+                        <h3><i class="fas fa-calendar"></i> Occasion-Specific Outfits</h3>
+                        <div class="outfit-suggestions">
+                            ${safeAnalysis.genderSpecific.occasion.map(item => `
+                                <div class="outfit-card">
+                                    <h4>${item}</h4>
+                                    <p>Ideal for ${occasion} occasions</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="analysis-card">
+                        <h3><i class="fas fa-cloud-sun"></i> Seasonal Recommendations</h3>
+                        <div class="outfit-suggestions">
+                            <div class="outfit-card">
+                                <h4>Colors</h4>
+                                <p>${safeAnalysis.genderSpecific.season.colors.join(', ') || 'No color recommendations available'}</p>
+                            </div>
+                            <div class="outfit-card">
+                                <h4>Fabrics</h4>
+                                <p>${safeAnalysis.genderSpecific.season.fabrics.join(', ') || 'No fabric recommendations available'}</p>
+                            </div>
+                            <div class="outfit-card">
+                                <h4>Layers</h4>
+                                <p>${safeAnalysis.genderSpecific.season.layers.join(', ') || 'No layering recommendations available'}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="analysis-card">
+                        <h3><i class="fas fa-lightbulb"></i> Style Tips</h3>
+                        <ul style="padding-left: 20px; color: var(--light-gray);">
+                            ${safeAnalysis.tips.map(tip => `<li style="margin-bottom: 8px;">${tip}</li>`).join('') || '<li>No specific style tips available</li>'}
+                        </ul>
+                    </div>
+                `;
+
+                // Update the DOM
+                resultContainer.innerHTML = content;
+                resultSection.classList.add('active');
+
+                // Scroll to results
+                setTimeout(() => {
+                    resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+
+            } catch (error) {
+                console.error('Error displaying results:', error);
+                // Show a user-friendly error message
+                resultContainer.innerHTML = `
+                    <div class="analysis-card">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Error</h3>
+                        <p>We encountered an issue while displaying your style analysis. Please try again or contact support if the problem persists.</p>
+                    </div>
+                `;
+                resultSection.classList.add('active');
+                throw new Error('Error displaying style analysis results: ' + error.message);
+            }
+        }
+
+        // Add character counter for textarea
+        document.getElementById('stylePreferences').addEventListener('input', function() {
+            const current = this.value.length;
+            const min = 20;
+            
+            // Remove existing counter
+            const existingCounter = this.parentNode.querySelector('.char-counter');
+            if (existingCounter) existingCounter.remove();
+            
+            // Add counter
+            const counter = document.createElement('div');
+            counter.className = 'char-counter';
+            counter.style.cssText = 'font-size: 0.8rem; color: var(--light-gray); text-align: right; margin-top: 5px;';
+            counter.textContent = `${current} characters (minimum ${min})`;
+            
+            if (current < min) {
+                counter.style.color = '#c62828';
+            } else {
+                counter.style.color = '#2e7d32';
+            }
+            
+            this.parentNode.appendChild(counter);
+        });
+    </script>
+</body>
+</html> 

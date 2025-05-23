@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug Report - MadeForMe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e8e3ed;
+            --secondary: #E8F2F0;
+            --accent: #e6f1ef;
+            --text: #111111;
+            --light-gray: #5f5b5b;
+            --cream: #b8b1b1;
+            --gradient: linear-gradient(to right, #07000D, #8b9190);
+            --shadow: 0 4px 15px rgba(0,0,0,0.2);
+            --transition: all 0.3s ease;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Poppins', sans-serif; 
+        }
+        
+        body { 
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--text); 
+            line-height: 1.6; 
+            min-height: 100vh;
+        }
+
+        .bug-report-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .bug-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 15px;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: #fafafa;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--text);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            background: var(--gradient);
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 20px;
+            align-self: center;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+            border-left: 4px solid #c62828;
+        }
+
+        .success-message {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+            border-left: 4px solid #2e7d32;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 30px;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 10px 20px;
+            border-radius: 25px;
+            background: var(--secondary);
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .bug-report-container {
+                margin: 20px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bug-report-container">
+        <h1 class="page-title">Report a Bug</h1>
+        
+        <div class="navigation-links" style="margin-bottom: 30px;">
+            <a href="about-us.html" class="nav-link">
+                <i class="fas fa-info-circle"></i>
+                About Us
+            </a>
+            <a href="feedback.html" class="nav-link">
+                <i class="fas fa-comment-alt"></i>
+                Give Feedback
+            </a>
+            <a href="index.html" class="nav-link">
+                <i class="fas fa-home"></i>
+                Back to Home
+            </a>
+        </div>
+
+        <form class="bug-form" id="bugForm">
+            <div class="form-group">
+                <label for="bugType">
+                    <i class="fas fa-bug"></i> Type of Issue
+                </label>
+                <select id="bugType" required>
+                    <option value="">Select issue type</option>
+                    <option value="technical">Technical Issue</option>
+                    <option value="ui">UI/UX Problem</option>
+                    <option value="performance">Performance Issue</option>
+                    <option value="security">Security Concern</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="bugTitle">
+                    <i class="fas fa-heading"></i> Issue Title
+                </label>
+                <input type="text" id="bugTitle" placeholder="Brief description of the issue" required>
+            </div>
+
+            <div class="form-group">
+                <label for="bugDescription">
+                    <i class="fas fa-align-left"></i> Detailed Description
+                </label>
+                <textarea id="bugDescription" placeholder="Please provide detailed information about the issue, including steps to reproduce if possible" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="severity">
+                    <i class="fas fa-exclamation-triangle"></i> Severity Level
+                </label>
+                <select id="severity" required>
+                    <option value="">Select severity</option>
+                    <option value="low">Low - Minor inconvenience</option>
+                    <option value="medium">Medium - Affects functionality</option>
+                    <option value="high">High - Major functionality issue</option>
+                    <option value="critical">Critical - System breaking</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="browser">
+                    <i class="fas fa-globe"></i> Browser/Device
+                </label>
+                <input type="text" id="browser" placeholder="e.g., Chrome 91.0, iPhone 12, etc." required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">
+                    <i class="fas fa-envelope"></i> Your Email
+                </label>
+                <input type="email" id="email" placeholder="We'll use this to follow up on your report" required>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-paper-plane"></i> Submit Report
+            </button>
+        </form>
+
+        <div class="error-message" id="errorMessage">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span id="errorText"></span>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i>
+            Bug report submitted successfully! We'll review it shortly.
+        </div>
+
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
+
+    <script>
+        document.getElementById('bugForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const bugType = document.getElementById('bugType').value;
+            const bugTitle = document.getElementById('bugTitle').value.trim();
+            const bugDescription = document.getElementById('bugDescription').value.trim();
+            const severity = document.getElementById('severity').value;
+            const browser = document.getElementById('browser').value.trim();
+            const email = document.getElementById('email').value.trim();
+
+            // Validation
+            if (!bugType || !bugTitle || !bugDescription || !severity || !browser || !email) {
+                showError('Please fill in all required fields');
+                return;
+            }
+
+            if (bugDescription.length < 20) {
+                showError('Please provide a more detailed description of the issue');
+                return;
+            }
+
+            // Show success message
+            showSuccess();
+            
+            // Reset form
+            e.target.reset();
+        });
+
+        function showError(message) {
+            document.getElementById('errorText').textContent = message;
+            document.getElementById('errorMessage').style.display = 'block';
+            document.getElementById('successMessage').style.display = 'none';
+            
+            // Scroll to error message
+            document.getElementById('errorMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function showSuccess() {
+            document.getElementById('successMessage').style.display = 'block';
+            document.getElementById('errorMessage').style.display = 'none';
+            
+            // Auto-hide success message after 5 seconds
+            setTimeout(() => {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html> 
